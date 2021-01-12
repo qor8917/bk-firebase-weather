@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  div {
+    width: 100px;
+    height: 100px;
+    position: relative;
+  }
+
+  div svg,
+  div svg rect {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    fill: transparent;
+  }
+
+  div svg rect {
+    stroke: #000;
+    stroke-width: 4px;
+    transition: 1.5s;
+    stroke-dasharray: 400;
+    stroke-dashoffset: 400;
+    animation: lineAni 2s forwards infinite;
+  }
+
+@keyframes lineAni {
+  from  {stroke-dasharray: 400;
+    stroke-dashoffset: 400;}
+  to  {stroke-dashoffset: 0;}
+}
+</style>
+
+<body>
+  <div>
+    <svg>
+      <rect></rect>
+    </svg>
+    BUTTON
+  </div>
+</body>
+
+</html>

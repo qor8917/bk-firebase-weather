@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/reset.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link rel="stylesheet" href="../css/swiper-bundle.min.css">
+  <link rel="stylesheet" href="../css/index.css">
+  <script src="../js/jquery-3.5.1.min.js"></script>
+  <script src="../js/swiper-bundle.min.js"></script>
+  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=acf6fc36340f07e21e2c8b28f3e0db29"></script>
+  <script src="../js/moment.js"></script>
+
+  <title>성백규</title>
+</head>
+
+<body>
+  <div class="weather-wrapper">
+    <div class="wrapper">
+      <div class="content-wrapper">
+        <div class="title-wrap">
+          <h1 class="main title">Weather Infomation</h1>
+          <h1 class="main title2">Weather Infomation</h1>
+        </div>
+        <div class="info">
+          <div class="daily-wrap">
+            <div class="daily-container">
+              <div class="daily first"></div>
+              <div class="daily second"></div>
+              <div class="daily third"></div>
+            </div>
+            <div class="weekliy-wrap">
+            </div>
+          </div>
+        </div>
+        <div class="hours-wrapper">
+          <div class="swiper-container">
+            <div class="swiper-wrapper"></div>
+          </div>
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
+        </div>
+        <div class="weekly-wrapper">
+          <div class="swiper-container weekly-container">
+            <div class="swiper-wrapper weekly-wrapper">
+              <!-- <div class="swiper-slide weekly-slide">
+                <div class="day">월요일</div>
+                <div class="icon"><img src="../img/sun-only.svg" alt="">
+                  <div class="desc">snow</div>
+                </div>
+                <div class="temp">
+                  <div class="max-temp">최고-10˚C</div>
+                  <div class="min-temp">최저-20˚C</div>
+                </div>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="map-wrap">
+        <svg class="line-ani">
+          <rect></rect>
+        </svg>
+        <div id="map" style="width:700px;height:850px;">
+          <div id="map2" style="width:200px;height:150px;"></div>
+          <div class="map-overlay-wrap"></div>
+        </div>
+      </div>
+
+    </div>
+    <script type="text/javascript" src="../js/vanillatilt.min.js"></script>
+    <script src="../js/index.js"></script>
+</body>
+
+</html>
