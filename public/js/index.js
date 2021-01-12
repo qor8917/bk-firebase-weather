@@ -23,6 +23,29 @@ var weatherUrl = "https://api.openweathermap.org/data/2.5/weather",
 
 
 /* 사용자함수 */
+function star() {
+  var count = 200;
+  var i = 0;
+  var weatherWrapper = document.querySelector(".weather-wrapper");
+  while (i < count) {
+    var star = document.createElement("i");
+    var x = Math.floor(Math.random() * window.innerWidth)
+    var y = Math.floor(Math.random() * window.innerHeight)    
+    star.style.left=x+"px";
+    star.style.top=y+"px";
+    size = Math.floor(1+ Math.random()*4);
+    star.style.width=size+"px";
+    star.style.height=size+"px";
+    star.style.animationDuration =2 + durations+"s";
+    var durations= Math.random()*2;
+    weatherWrapper.appendChild(star);
+    i++
+  }
+
+
+
+}
+
 
 function updateWol(r) {
   $(".info .first").append(createInfo(r))
@@ -30,7 +53,13 @@ function updateWol(r) {
 
 function updateDaily(r) {
   $(".info .second").empty();
-  $(".info .second").append(createInfo(r))
+  $(".info .second").append(createInfo(r)); 
+  $(".info .second").addClass("active").siblings().hide();  
+  setTimeout(function(){
+    $(".info .second").removeClass("active").siblings().show();
+  },4000)
+
+
 }
 
 function updateNam(r) {
@@ -193,10 +222,10 @@ function onCreatMarker(r) {
   var city = cities.filter(function (v) {
     return v.id === r.id
   });
-  console.log (city);
+  console.log(city);
   r.city = city[0].name;
   var content;
-  content = '<div class="overlay ' + city[0].class + '" onclick="getWeather(' + city[0].lat +','+city[0].lon+')">';
+  content = '<div class="overlay ' + city[0].class + '" onclick="getWeather(' + city[0].lat + ',' + city[0].lon + ')">';
   content += '<h3 class="location">' + city[0].name + ' <i class="fa fa-location-arrow" aria-hidden="true"></i></h3>';
   content += '<div class="img-temp-wrap">';
   content += '<img src="' + updateBg(r.weather[0].icon).svg + '" alt="">';
@@ -230,7 +259,7 @@ function onCreatMarkker(r) {
   });
   r.city = city[0].name;
   var content;
-  content = '<div class="overlay ' + city[0].class + '" onclick="getWeather(' + city[0].lat +','+city[0].lon+')">';
+  content = '<div class="overlay ' + city[0].class + '" onclick="getWeather(' + city[0].lat + ',' + city[0].lon + ')">';
   content += '<h3 class="location">' + city[0].name + ' <i class="fa fa-location-arrow" aria-hidden="true"></i></h3>';
   content += '<div class="img-temp-wrap">';
   content += '<img src="' + updateBg(r.weather[0].icon).svg + '" alt="">';
@@ -238,7 +267,7 @@ function onCreatMarkker(r) {
   content += '</div>';
   content += '<div>';
   content += '<span class="max-temp">최고:' + Math.floor(r.main.temp_max) + '˚C</span>';
-  content += '<span class="min-temp">최저:' +Math.floor(r.main.temp_min) + '˚C</span>';
+  content += '<span class="min-temp">최저:' + Math.floor(r.main.temp_min) + '˚C</span>';
   content += '</div>';
   content += '</div>';
   var position = new kakao.maps.LatLng(r.coord.lat, r.coord.lon);
@@ -279,41 +308,42 @@ navigator.geolocation.getCurrentPosition(onGetPosition, onGetPositionError);
 getWol();
 getNam();
 $(".daily").hover(onEnter, onLeave)
+star();
 
 /* 이벤트 콜백 */
 function onCallWeather(r) {
   $(".hours-wrapper .swiper-wrapper").empty();
-  $(".weekly-wrapper .swiper-wrapper").empty(); 
+  $(".weekly-wrapper .swiper-wrapper").empty();
   for (var i in r.hourly) {
     var html;
     html = '<div class="swiper-slide">';
-    html += '<div class="title">' + ((i == 0) ? "지금" : moment(r.hourly[i].dt * 1000).format("D")+"일"+moment(r.hourly[i].dt * 1000).format("H")+"시") + '</div>';
-    html += '<div class="img-wrap"><img src="'+updateBg(r.hourly[i].weather[0].icon).svg+'" alt=""></div>';
+    html += '<div class="title">' + ((i == 0) ? "지금" : moment(r.hourly[i].dt * 1000).format("D") + "일" + moment(r.hourly[i].dt * 1000).format("H") + "시") + '</div>';
+    html += '<div class="img-wrap"><img src="' + updateBg(r.hourly[i].weather[0].icon).svg + '" alt=""></div>';
     html += '<div class="temp">' + Math.floor(r.hourly[i].temp) + '˚</div>';
     html += '</div>';
     $(".hours-wrapper .swiper-wrapper").append(html);
-  }  
+  }
   var mySwiper = new Swiper('.hours-wrapper .swiper-container', {
     slidesPerView: 5,
     spaceBetween: 10,
     navigation: {
       nextEl: '.swiper-button-next',
       prevEl: '.swiper-button-prev',
-    } 
+    }
   })
-  for (var i in r.daily){
+  for (var i in r.daily) {
     var html;
-        html='<div class="swiper-slide weekly-slide">';
-        html+='<div class="day">'+moment(r.daily[i].dt*1000).format('dddd')+'</div>';
-        html+='<div class="icon"><img src="'+updateBg(r.daily[i].weather[0].icon).svg+'" alt="">';
-        html+='<div class="desc">'+r.daily[i].weather[0].main+'</div>';
-        html+='</div>';
-        html+='<div class="temp">';
-        html+='<div class="max-temp">최고'+Math.floor(r.daily[i].temp.min)+'˚C</div>';
-        html+='<div class="min-temp">최저'+Math.floor(r.daily[i].temp.max)+'˚C</div>';
-        html+='</div>';
-        html+='</div>';
-        $(".weekly-wrapper .swiper-wrapper").append(html);
+    html = '<div class="swiper-slide weekly-slide">';
+    html += '<div class="day">' + moment(r.daily[i].dt * 1000).format('dddd') + '</div>';
+    html += '<div class="icon"><img src="' + updateBg(r.daily[i].weather[0].icon).svg + '" alt="">';
+    html += '<div class="desc">' + r.daily[i].weather[0].main + '</div>';
+    html += '</div>';
+    html += '<div class="temp">';
+    html += '<div class="max-temp">최고' + Math.floor(r.daily[i].temp.min) + '˚C</div>';
+    html += '<div class="min-temp">최저' + Math.floor(r.daily[i].temp.max) + '˚C</div>';
+    html += '</div>';
+    html += '</div>';
+    $(".weekly-wrapper .swiper-wrapper").append(html);
   }
   var mySwiper2 = new Swiper('.weekly-wrapper .swiper-container', {
     slidesPerView: 4,
@@ -380,4 +410,3 @@ function onGetPosition(r) {
 function onGetPositionError(e) {
   getWeather(37.566661, 126.978400);
 }
-
