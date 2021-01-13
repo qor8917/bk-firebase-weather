@@ -50,14 +50,16 @@ function star() {
 function updateWol(r) {
   $(".info .first").append(createInfo(r))
 }
-
+var timeout;
 function updateDaily(r) {
   $(".info .second").empty();
   $(".info .second").append(createInfo(r)); 
-  $(".info .second").addClass("active").siblings().hide();  
-  setTimeout(function(){
+  $(".info .second").addClass("active").siblings().hide();
+  clearTimeout(timeout);
+  timeout = setTimeout(function(){
     $(".info .second").removeClass("active").siblings().show();
   },4000)
+
 
 
 }
